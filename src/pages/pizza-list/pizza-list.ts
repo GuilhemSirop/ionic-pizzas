@@ -91,11 +91,7 @@ export class PizzaListPage {
     this.connection = this.pizzaProvider.deleteById(id).subscribe(
       () => {
         this.listPizza = this.listPizza.filter(aPizza => aPizza._id !== id);
-        this.toastCtrl.create({
-          message: 'La pizza a été supprimée !',
-          duration: 3000,
-          position: 'top'
-        }).present();
+
       },
       () => console.log('error')
     );
