@@ -1,34 +1,62 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+
+
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import { PizzaProvider } from '../providers/pizza/pizza';
+import { PizzaListPage } from '../pages/pizza-list/pizza-list';
+import { PizzaDetailPage } from '../pages/pizza-detail/pizza-detail';
+import { AdministrationPage } from '../pages/administration/administration';
+import {PizzaFormPage} from '../pages/pizza-form/pizza-form';
+
+import { HttpClientModule } from '@angular/common/http';
+import {IngredientListPage} from '../pages/ingredient-list/ingredient-list';
+import {IngredientFormPage} from '../pages/ingredient-form/ingredient-form';
+import {IngredientDetailPage} from '../pages/ingredient-detail/ingredient-detail';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    AdministrationPage,
+    PizzaListPage,
+    PizzaFormPage,
+    PizzaDetailPage,
+    IngredientListPage,
+    IngredientFormPage,
+    IngredientDetailPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    AdministrationPage,
+    PizzaFormPage,
+    PizzaListPage,
+    PizzaDetailPage,
+    IngredientListPage,
+    IngredientFormPage,
+    IngredientDetailPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    PizzaProvider
   ]
 })
 export class AppModule {}
