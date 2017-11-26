@@ -16,35 +16,73 @@ export class IngredientListPage {
   listIngredient: Ingredient[];
   ingredientDetailPage: typeof IngredientDetailPage;
   ingredientFormPage: typeof IngredientFormPage;
+  connection;
 
   constructor(public navCtrl: NavController,
               private navParams: NavParams,
               public toastCtrl: ToastController,
               public actionSheetCtrl: ActionSheetController,
-              private IngredientProvider: IngredientProvider) {
+              private ingredientProvider: IngredientProvider) {
 
     this.adminMode = this.navParams.data.admin ? this.navParams.data.admin : false;
     this.ingredientDetailPage = IngredientDetailPage;
     this.ingredientFormPage = IngredientFormPage;
     // Récupération des Ingredients
-    this.IngredientProvider.get().subscribe((ingredient) => {
+    this.ingredientProvider.get().subscribe((ingredient) => {
       this.listIngredient = ingredient;
     });
   }
 
   ionViewDidLoad() {
-  }
 
-  deleteIngredient(id) {
-    console.log(id);
-    this.IngredientProvider.deleteById(id).subscribe(
-      () => {
-        this.listIngredient = this.listIngredient.filter(aIngredient => aIngredient._id !== id);
+    // SOCKET.IO
+    // POST
+    this.connection = this.ingredientProvider.listenIngredientPost().subscribe((ingredient: any) => {
+        this.listIngredient.unshift(ingredient);
         this.toastCtrl.create({
-          message: `L'ingrédient a été supprimée !`,
+          message: `L'ingrédient : ${ingredient.name} a été ajouté !! `,
           duration: 3000,
           position: 'top'
         }).present();
+
+      },
+      () => console.error(`Un problème a été rencontré durant la récupération du nouvel ingredient.`)
+    );
+    // PUT
+    this.connection = this.ingredientProvider.listenIngredientPut().subscribe((ingredient: any) => {
+        // Mise à jour de l'ingrédient
+        for (const i in this.listIngredient) {
+          if (this.listIngredient[i]._id === ingredient._id) {
+            this.listIngredient[i] = ingredient;
+          }
+        }
+        this.toastCtrl.create({
+          message: `L'ingrédient : ${ingredient.name} a été mis à jour !! `,
+          duration: 3000,
+          position: 'top'
+        }).present();
+      },
+      () => console.error(`Un problème a été rencontré durant la récupération de l'ingrédient mis à jour.`)
+    );
+    // DELETE
+    this.connection = this.ingredientProvider.listenIngredientDelete().subscribe((ingredient: any) => {
+        this.listIngredient = this.listIngredient.filter(aIngredient => aIngredient._id !== ingredient._id);
+        this.toastCtrl.create({
+          message: `L'ingrédient : ${ingredient.name} a été retiré !! `,
+          duration: 3000,
+          position: 'top'
+        }).present();
+      },
+      () => console.error(`Un problème a été rencontré durant la récupération de l'ingredient supprimé.`)
+    );
+
+  }
+
+  deleteIngredient(id) {
+    this.ingredientProvider.deleteById(id).subscribe(
+      () => {
+        this.listIngredient = this.listIngredient.filter(aIngredient => aIngredient._id !== id);
+
       },
       () => console.log('error')
     );

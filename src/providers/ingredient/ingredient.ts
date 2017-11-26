@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import 'rxjs/add/operator/map';
 
-//import * as io from 'socket.io-client';
+import * as io from 'socket.io-client';
 
 import { Ingredient } from '../../models/ingredient';
 import {Observable} from 'rxjs/Observable';
@@ -12,7 +12,7 @@ import {Observable} from 'rxjs/Observable';
 export class IngredientProvider {
 
   private baseUrl = 'https://nodejs-api-cloned-coeurdelion.c9users.io';
-  //private socket  = io.connect(this.baseUrl);
+  private socket  = io.connect(this.baseUrl);
 
   private url: string;
 
@@ -41,6 +41,54 @@ export class IngredientProvider {
     return this.http.delete(this.url + '/' + id);
   }
 
+
+  /* *** SOCKET *** */
+  listenIngredientPost() {
+    /* Evenement on add-pizza */
+    console.log('Listen SOCKET Ingredient POST');
+    let observable = new Observable(observer => {
+        this.socket.on('[Ingredient][post]', (data) => {
+          console.log('caca');
+          observer.next(data);
+        });
+        return () => {
+          this.socket.disconnect();
+        };
+      }
+    );
+    return observable;
+  }
+
+  listenIngredientPut() {
+    console.log('Listen SOCKET Ingredient PUT');
+    /* Evenement on add-pizza */
+    let observable = new Observable(observer => {
+        this.socket.on('[Ingredient][put]', (data) => {
+          observer.next(data);
+        });
+        return () => {
+          this.socket.disconnect();
+        };
+      }
+    );
+    return observable;
+  }
+
+  listenIngredientDelete() {
+    console.log('Listen SOCKET Ingredient DELETE');
+    /* Evenement on add-pizza */
+    let observable = new Observable(observer => {
+        this.socket.on('[Ingredient][delete]', (data) => {
+          console.log('coucou');
+          observer.next(data);
+        });
+        return () => {
+          this.socket.disconnect();
+        };
+      }
+    );
+    return observable;
+  }
 
 
 
