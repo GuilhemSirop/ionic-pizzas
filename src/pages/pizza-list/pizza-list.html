@@ -15,17 +15,18 @@
 
   <div *ngIf="!adminMode">
     <ion-card  *ngFor="let pizza of listPizza">
+      <div [navPush]="pizzaDetailPage" [navParams]="pizza">
       <img *ngIf="pizza.img" src="data:image/png;base64,{{pizza.img}}"/>
-      <img *ngIf="!pizza.img" src="../../assets/imgs/img-pizza.jpg"/>
-      <ion-card-content  [navPush]="pizzaDetailPage" [navParams]="pizza">
+      <img *ngIf="!pizza.img" src="../../assets/imgs/img-pizza.jpg" />
+      <ion-card-content>
         <ion-card-title>
           {{pizza.name}}
         </ion-card-title>
         <p>
           {{pizza.description}}
         </p>
-
       </ion-card-content>
+      </div>
       <button ion-button block (click)="addBasket(pizza)">Ajouter au panier</button>
     </ion-card>
   </div>
