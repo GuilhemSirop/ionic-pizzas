@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import {ActionSheetController, NavController, NavParams, ToastController} from 'ionic-angular';
 import { PizzaProvider } from '../../providers/pizza/pizza';
+import { BasketProvider } from '../../providers/basket/basket';
 import { Pizza } from '../../models/pizza';
 import { PizzaDetailPage } from "../pizza-detail/pizza-detail";
 import { PizzaFormPage } from "../pizza-form/pizza-form";
-import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'page-pizza-list',
   templateUrl: 'pizza-list.html',
-  providers: [PizzaProvider]
+  providers: [PizzaProvider, BasketProvider]
 })
 export class PizzaListPage {
 
@@ -19,13 +19,13 @@ export class PizzaListPage {
   pizzaFormPage: typeof PizzaFormPage;
   connection;
 
-  subscribers: Subscription[] = [];
 
   constructor(public navCtrl: NavController,
               private navParams: NavParams,
               public toastCtrl: ToastController,
               public actionSheetCtrl: ActionSheetController,
-              private pizzaProvider: PizzaProvider) {
+              private pizzaProvider: PizzaProvider,
+              private basketProvider: BasketProvider) {
 
     this.adminMode = this.navParams.data.admin ? this.navParams.data.admin : false;
     this.pizzaDetailPage = PizzaDetailPage;
@@ -85,6 +85,10 @@ export class PizzaListPage {
     );
 
 
+  }
+
+  addBasket(pizza){
+    this.basketProvider.create(pizza);
   }
 
   deletePizza(id) {

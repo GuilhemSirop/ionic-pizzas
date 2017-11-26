@@ -12,12 +12,14 @@ import { PizzaProvider } from '../providers/pizza/pizza';
 import { PizzaListPage } from '../pages/pizza-list/pizza-list';
 import { PizzaDetailPage } from '../pages/pizza-detail/pizza-detail';
 import { AdministrationPage } from '../pages/administration/administration';
-import {PizzaFormPage} from '../pages/pizza-form/pizza-form';
+import { PizzaFormPage } from '../pages/pizza-form/pizza-form';
 
 import { HttpClientModule } from '@angular/common/http';
 import {IngredientListPage} from '../pages/ingredient-list/ingredient-list';
 import {IngredientFormPage} from '../pages/ingredient-form/ingredient-form';
 import {IngredientDetailPage} from '../pages/ingredient-detail/ingredient-detail';
+import {BasketProvider} from '../providers/basket/basket';
+import {BasketPage} from '../pages/basket/basket';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import {IngredientDetailPage} from '../pages/ingredient-detail/ingredient-detail
     PizzaDetailPage,
     IngredientListPage,
     IngredientFormPage,
-    IngredientDetailPage
+    IngredientDetailPage,
+    BasketPage
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,8 @@ import {IngredientDetailPage} from '../pages/ingredient-detail/ingredient-detail
     PizzaDetailPage,
     IngredientListPage,
     IngredientFormPage,
-    IngredientDetailPage
+    IngredientDetailPage,
+    BasketPage
   ],
   providers: [
     StatusBar,
