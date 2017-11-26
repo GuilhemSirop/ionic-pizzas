@@ -14,6 +14,7 @@ export class BasketPage {
 
   listPizza: PizzaBasket[];
   pizzaDetailPage: typeof PizzaDetailPage;
+  basketPrice: number;
   connection;
 
 
@@ -41,6 +42,13 @@ export class BasketPage {
     this.listPizza = this.basketProvider.create(pizza);
   }
 
+  getBasketPrice(){
+    let price = 0;
+    for(let i in this.listPizza){
+      price += +this.listPizza[i].price * this.listPizza[i].nb;
+    }
+    return price;
+  }
   deletePizza(id) {
     this.listPizza = this.basketProvider.deleteById(id);
   }
