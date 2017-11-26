@@ -15,11 +15,16 @@
 
   <div *ngIf="!adminMode">
     <ion-card  *ngFor="let pizza of listPizza" [navPush]="pizzaDetailPage" [navParams]="pizza">
-
-      <img src="data:image/png;base64,{{pizza.img}}"/>
-      <div class="card-title">{{pizza.name}}</div>
-      <div class="card-subtitle"> {{pizza.description}}</div>
-
+      <img *ngIf="pizza.img" src="data:image/png;base64,{{pizza.img}}"/>
+      <img *ngIf="!pizza.img" src="../../assets/imgs/img-pizza.jpg"/>
+      <ion-card-content>
+        <ion-card-title>
+          {{pizza.name}}
+        </ion-card-title>
+        <p>
+          {{pizza.description}}
+        </p>
+      </ion-card-content>
     </ion-card>
   </div>
 
@@ -32,7 +37,8 @@
   <ion-list *ngIf="adminMode">
     <ion-item  *ngFor="let pizza of listPizza" (click)="presentActionSheet(pizza)">
       <ion-thumbnail item-start>
-        <img src="data:image/png;base64,{{pizza.img}}"/>
+        <img *ngIf="pizza.img" src="data:image/png;base64,{{pizza.img}}"/>
+        <img *ngIf="!pizza.img" src="../../assets/imgs/img-pizza.jpg"/>
       </ion-thumbnail>
       <h2>{{pizza.name}}</h2>
       <p>{{pizza.description}}</p>

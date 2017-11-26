@@ -26,8 +26,6 @@
         <img *ngIf="pizza && pizza.img" class="img-responsive center-block" src="data:image/png;base64,{{pizza.img}}">
         <label for="filePicker">Modifier l'image:</label><br>
         <input class="center-block" type="file" id="filePicker" (change)="handleFileSelect($event)">
-
-
       </p>
       <p>
         <ion-item>
@@ -51,17 +49,18 @@
       </p>
       <p>
         <label>Ingrédients</label>
-        <span *ngFor="let ingredient of listIngredient">
-        <button type="button" (click)="toggleIngredient(ingredient._id)"
-                class="btn btn-info"
-                [ngClass]="{'active': selectedIngredients.indexOf(ingredient._id) !== -1}"
-                role="alert">
-          <i class="fa fa-hand-o-up"></i> {{ingredient.name}}
-        </button>&nbsp;
-      </span>
+        <button *ngFor="let ingredient of listIngredient"
+                (click)="toggleIngredient(ingredient._id)"
+                [outline]="selectedIngredients.indexOf(ingredient._id) === -1"
+                ion-button small type="button">
+          {{ ingredient.name }}
+        </button>
+
+
+
       </p>
       <p>
-        <button type="submit" [disabled]="!form.valid" ion-button>Enregistrer</button>
+        <button type="submit" [disabled]="!form.valid" ion-button block>Enregistrer</button>
       </p>
     </form>
   </ng-template>
