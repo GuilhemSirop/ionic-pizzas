@@ -7,8 +7,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 
 import { PizzaProvider } from '../providers/pizza/pizza';
 import { PizzaListPage } from '../pages/pizza-list/pizza-list';
@@ -24,8 +22,6 @@ import {IngredientDetailPage} from '../pages/ingredient-detail/ingredient-detail
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    ListPage,
     AdministrationPage,
     PizzaListPage,
     PizzaFormPage,
@@ -42,8 +38,6 @@ import {IngredientDetailPage} from '../pages/ingredient-detail/ingredient-detail
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    ListPage,
     AdministrationPage,
     PizzaFormPage,
     PizzaListPage,

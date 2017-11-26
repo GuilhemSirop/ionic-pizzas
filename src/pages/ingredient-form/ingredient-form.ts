@@ -78,8 +78,7 @@ export class IngredientFormPage {
             duration: 3000,
             position: 'top'
           }).present();
-
-          this.navCtrl.push(IngredientListPage, {admin: true});
+          this.navCtrl.setRoot(IngredientListPage, {admin:true}, {animate: true, direction: 'foward'});
         },
         () => this.toastCtrl.create({
           message: `Un problème est survenu lors de l'ajout de l'ingrédient.`,
@@ -87,11 +86,13 @@ export class IngredientFormPage {
           position: 'top'
         }).present(),
 
-        () => this.isLoading = false
+        () => {
+          this.isLoading = false;
+
+        }
       );
     } else {
       // SI ON UPDATE
-      console.log(this.ingredient._id);
       this.ingredientProvider.update(this.ingredient._id, this.form.value).subscribe(
         () => {
           this.toastCtrl.create({
@@ -100,7 +101,7 @@ export class IngredientFormPage {
             position: 'top'
           }).present();
 
-          this.navCtrl.push(IngredientListPage, {admin: true});
+          this.navCtrl.setRoot(IngredientListPage, {admin:true}, {animate: true, direction: 'foward'});
         },
         () => console.log(`Un problème est survenu lors de a mise à jour de l'ingrédient.`, 'Oups !'),
         () => this.isLoading = false
